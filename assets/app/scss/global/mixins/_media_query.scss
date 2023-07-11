@@ -1,0 +1,42 @@
+// メディアクエリ
+@use "../variables/_breakpoints.scss" as *;
+
+/// min-width : 640px のメディアクエリ
+/// スマホの横置き等
+/// @content
+/// @group media-query
+@mixin sm {
+  @media (min-width: $sm) {
+    @content;
+  }
+}
+
+/// min-width : 768px のメディアクエリ
+/// タブレット等
+/// @content
+/// @group media-query
+@mixin md {
+  @media (min-width: $md) {
+    @content;
+  }
+}
+
+/// min-width : 1024px のメディアクエリ
+/// デスクトップで半分の幅で開いた時など
+/// @content
+/// @group media-query
+@mixin lg {
+  @media (min-width: $lg) {
+    @content;
+  }
+}
+
+/// min-width : 1280px のメディアクエリ
+/// MacBook 11 inch 等
+/// @content
+/// @group media-query
+@mixin xl {
+  @media (min-width: $xl) {
+    @content;
+  }
+}

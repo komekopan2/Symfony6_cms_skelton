@@ -1,0 +1,29 @@
+{# フォームの項目一列 #}
+<div class="c-form-row">
+
+  <div class="c-form-row-label">
+    {% if label is defined %}<label>{{ label }}</label>
+    {% else %}{{ form_label(form) }}
+    {% endif %}
+
+    {% if (form is defined and form.vars.required) and (required is not defined or required) %}
+      <span class="c-form-row-label__required">必須</span>
+    {% endif %}
+  </div>
+
+  <div class="c-form-row-body js-form-validation__row">
+
+    <div class="c-form-row-body__elements js-form-validation__elements">
+      {% block elements %}
+        {% if form is defined %}{{ form_widget(form) }}{% endif %}
+      {% endblock %}
+    </div>
+
+    <div class="c-form-row-body__errors js-form-validation__errors">
+      {% block errors %}
+        {% if form is defined %}{{ form_errors(form) }}{% endif %}
+      {% endblock %}
+    </div>
+
+  </div>
+</div>
