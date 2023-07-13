@@ -4,4 +4,31 @@
 {% block body %}
 <h1>TOPICS Index</h1>
 
+<table class="l_table table">
+  <thead>
+    <tr>
+      <th>日付</th>
+      <th>タイトル</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for post in posts %}
+    <tr>
+      <td>{{ post.postAt|date('Y.m.d') }}</td>
+      <td>{{ post.title }}</td>
+      <td>
+        <a
+          href="{{ post.url }}"
+          rel="noreferrer noopenner"
+          target="_blank"
+          >
+          {{ post.url|strim_width(24) }}
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}
