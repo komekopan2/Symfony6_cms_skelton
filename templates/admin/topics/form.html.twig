@@ -4,4 +4,25 @@
 {% block body %}
 <h1>TOPICS Add</h1>
 
+{{ form_start(form, {
+  attr: {
+    id: "input-form",
+    class: "l_form"
+  }
+}) }}
+  <div class="l_form__row">
+    {{ form_row(form.title) }}
+    {{ form_row(form.postAt) }}
+  </div>
+  <div class="l_form__row l_form__row--full">
+    {{ form_row(form.url) }}
+  </div>
+
+  {% include "admin/include/_formBtn.html.twig" with {
+    returnPage: path('admin_topics_index'),
+    isCreate: true,
+    addDeleteBtn: false
+  } %}
+
+{{ form_end(form) }}
 {% endblock %}

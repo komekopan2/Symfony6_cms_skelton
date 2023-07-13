@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Topics\Post;
+use App\Form\Admin\Topics\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +22,12 @@ class TopicsController extends AbstractController
     #[Route("/add", name: "admin_topics_add", methods: ["GET"])]
     public function add(): Response
     {
-        return $this->render("admin/topics/form.html.twig", []);
+        $post = (new Post())
+            ->setPostAt(new \DateTime());
+        $form = $this->createForm(PostType::class, $post);
+
+        return $this->render("admin/topics/form.html.twig", [
+            "form" => $form->createView()
+        ]);
     }
 }
