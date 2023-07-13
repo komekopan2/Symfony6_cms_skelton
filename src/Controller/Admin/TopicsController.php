@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Topics\PostRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route("/admin/topics")]
 class TopicsController extends AbstractController
@@ -19,12 +20,24 @@ class TopicsController extends AbstractController
             "posts" => $postRepository->findBy([], ["postAt" => "desc"])
         ]);
     }
-    #[Route("/add", name: "admin_topics_add", methods: ["GET"])]
-    public function add(): Response
-    {
+
+    #[Route("/add", name: "admin_topics_add", methods: ["GET", "POST"])]
+    public function add(
+        Request $request,
+        PostRepository $postRepository
+    ): Response {
         $post = (new Post())
             ->setPostAt(new \DateTime());
         $form = $this->createForm(PostType::class, $post);
+        if ("POST" === $request->getMethod()) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $postRepository->save($post, true);
+                $this->addFlash("success", "保存しました");
+                return $this->redirectToRoute("admin_topics_index");
+            }
+            $this->addFlash("error", "入力内容に不備がありました");
+        }
 
         return $this->render("admin/topics/form.html.twig", [
             "form" => $form->createView()
