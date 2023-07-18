@@ -10,6 +10,7 @@
       <th>日付</th>
       <th>タイトル</th>
       <th>URL</th>
+      <th class="l_table__btn-col">編集</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,11 @@
           target="_blank"
           >
           {{ post.url|strim_width(24) }}
+        </a>
+      </td>
+      <td>
+        <a href="{{ path('admin_topics_edit', {id: post.id}) }}" class="btn btn-info">
+          編集
         </a>
       </td>
     </tr>

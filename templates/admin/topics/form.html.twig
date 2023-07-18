@@ -20,7 +20,7 @@
 
   {% include "admin/include/_formBtn.html.twig" with {
     returnPage: path('admin_topics_index'),
-    isCreate: true,
+    isCreate: isCreate,
     addDeleteBtn: false
   } %}
 

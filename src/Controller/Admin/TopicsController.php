@@ -40,7 +40,30 @@ class TopicsController extends AbstractController
         }
 
         return $this->render("admin/topics/form.html.twig", [
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "isCreate" => true
+        ]);
+    }
+    #[Route("/edit/{id}", name: "admin_topics_edit", requirements: ["id" => "\d"], methods: ["GET", "POST"])]
+    public function edit(
+        Request $request,
+        PostRepository $postRepository,
+        Post $post
+    ): Response {
+        $form = $this->createForm(PostType::class, $post);
+        if ("POST" === $request->getMethod()) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $postRepository->save($post, true);
+                $this->addFlash("success", "保存しました");
+                return $this->redirectToRoute("admin_topics_index");
+            }
+            $this->addFlash("error", "入力内容に不備がありました");
+        }
+
+        return $this->render("admin/topics/form.html.twig", [
+            "form" => $form->createView(),
+            "isCreate" => false
         ]);
     }
 }
