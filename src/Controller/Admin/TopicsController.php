@@ -66,4 +66,20 @@ class TopicsController extends AbstractController
             "isCreate" => false
         ]);
     }
+
+    #[Route("/delete/{id}", name: "admin_topics_delete", requirements: ["id" => "\d"], methods: ["DELETE", "POST"])]
+    public function delete(
+        Request $request,
+        PostRepository $postRepository,
+        Post $post
+    ): Response {
+        if ($this->isCsrfTokenValid(
+            "admin_topics_delete_" . $post->getId(),
+            $request->request->get('_token')
+        )) {
+            $postRepository->remove($post, true);
+            $this->addFlash("success", "削除しました");
+        }
+        return $this->redirectToRoute("admin_topics_index");
+    }
 }

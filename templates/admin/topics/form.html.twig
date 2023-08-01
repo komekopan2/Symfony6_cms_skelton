@@ -21,7 +21,10 @@
   {% include "admin/include/_formBtn.html.twig" with {
     returnPage: path('admin_topics_index'),
     isCreate: isCreate,
-    addDeleteBtn: false
+    addDeleteBtn: not isCreate,
+    deletePage: not isCreate ? path('admin_topics_delete', {id: form.vars.value.id}): "",
+    deleteConfirmMessage: "削除しますか？",
+    csrfToken: csrf_token("admin_topics_delete_"~form.vars.value.id)
   } %}
 
 {{ form_end(form) }}
