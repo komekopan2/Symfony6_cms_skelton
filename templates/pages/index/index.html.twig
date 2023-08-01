@@ -3,6 +3,17 @@
 {% block title %}TOP{% endblock %}
 {% block body %}
 <h1>TOP</h1>
+    {% if topics|length %}
+    <div>
+      <h2>Topics</h2>
+      {% for post in topics %}
+      <a href="{{ post.url }}" target="_blank" rel="noreferrer noopenner">
+        <time>{{ post.postAt|date('Y.m.d') }}</time>
+        <cite>{{ post.title }}</cite>
+      </a>
+      {% endfor %}
+    </div>
+  {% endif %}
   <figure><img src="{{ asset('build/images/no_image.png') }}" alt="noImage"></figure>
 
 <h2>News</h2>
