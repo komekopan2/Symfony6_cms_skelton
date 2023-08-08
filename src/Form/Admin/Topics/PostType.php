@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class PostType extends AbstractType
 {
@@ -40,6 +41,10 @@ class PostType extends AbstractType
                         "message" => "未入力です"
                     ])
                 ]
+            ])
+            ->add('draft', CheckboxType::class, [
+                "label" => "下書き",
+                "required" => false
             ]);
     }
 

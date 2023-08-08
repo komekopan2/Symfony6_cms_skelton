@@ -45,6 +45,7 @@
       <th>日付</th>
       <th>タイトル</th>
       <th>URL</th>
+      <th>下書き</th>
       <th class="l_table__btn-col">編集</th>
     </tr>
   </thead>
@@ -61,6 +62,9 @@
           >
           {{ post.url|strim_width(24) }}
         </a>
+      </td>
+      <td>
+        {{ post.draft ? "下書き" : "" }}
       </td>
       <td>
         <a href="{{ path('admin_topics_edit', {id: post.id}) }}" class="btn btn-info">

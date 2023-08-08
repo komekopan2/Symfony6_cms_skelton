@@ -10,9 +10,14 @@
     class: "l_form"
   }
 }) }}
-  <div class="l_form__row">
+  <div class="l_form__row l_form__row--3box">
     {{ form_row(form.title) }}
     {{ form_row(form.postAt) }}
+      {{ form_row(form.draft, {
+        row_attr: {
+          class: "align-self-center"
+        }
+    }) }}
   </div>
   <div class="l_form__row l_form__row--full">
     {{ form_row(form.url) }}
