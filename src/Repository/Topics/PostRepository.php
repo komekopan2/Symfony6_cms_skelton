@@ -45,6 +45,7 @@ class PostRepository extends ServiceEntityRepository implements AdminIndexInterf
         $qb = $this->createQueryBuilder("topics");
         $qb
             ->setMaxResults($maxResult)
+            ->andWhere("topics.draft = false")
             ->orderBy("topics.postAt", "DESC")
             ->addOrderBy("topics.id", "DESC");
         return $qb->getQuery()->getResult();
