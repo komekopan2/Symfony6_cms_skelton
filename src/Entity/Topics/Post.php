@@ -24,6 +24,9 @@ class Post
     #[ORM\Column(length: 4096)]
     private ?string $url = null;
 
+    #[ORM\Column]
+    private ?bool $draft = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Post
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function isDraft(): ?bool
+    {
+        return $this->draft;
+    }
+
+    public function setDraft(bool $draft): self
+    {
+        $this->draft = $draft;
 
         return $this;
     }
