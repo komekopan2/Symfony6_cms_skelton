@@ -4,6 +4,41 @@
 {% block body %}
 <h1>TOPICS Index</h1>
 
+  {% if paginate.hasPagination %}
+  <nav class="admin-pagination">
+    <ul class="pagination">
+      {% if not paginate.isFirstPage %}
+        <li class="page-item">
+          <a href="{{ path('admin_topics_index', {page: 1}) }}" class="page-link">
+            最初
+          </a>
+        </li>
+      {% endif %}
+      {% for i in paginate.getSlidingPageList(4) %}
+        {% if i == paginate.getCurrentPage %}
+          <li class="page-item active">
+            <b class="page-link">{{ i }}</b>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a href="{{ path('admin_topics_index', {page: i}) }}" class="page-link">
+              {{ i }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if not paginate.isLastPage %}
+        <li class="page-item">
+          <a href="{{ path('admin_topics_index', {page: paginate.getTotalPage}) }}" class="page-link">
+            最後
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+
 <table class="l_table table">
   <thead>
     <tr>
@@ -14,7 +49,7 @@
     </tr>
   </thead>
   <tbody>
-  {% for post in posts %}
+  {% for post in paginate.paginator.iterator %}
     <tr>
       <td>{{ post.postAt|date('Y.m.d') }}</td>
       <td>{{ post.title }}</td>

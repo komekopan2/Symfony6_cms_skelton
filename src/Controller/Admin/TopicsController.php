@@ -9,15 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Topics\PostRepository;
 use Symfony\Component\HttpFoundation\Request;
+use TripleE\Utilities\PaginationUtil;
 
 #[Route("/admin/topics")]
 class TopicsController extends AbstractController
 {
     #[Route("/", name: "admin_topics_index", methods: ["GET"])]
-    public function index(PostRepository $postRepository): Response
+    public function index(Request $request, PostRepository $postRepository): Response
     {
+        $page = $request->query->get('page', 1);
         return $this->render("admin/topics/index.html.twig", [
-            "posts" => $postRepository->findBy([], ["postAt" => "desc"])
+            "paginate" => new PaginationUtil(
+                $postRepository->getAdminIndexQuery([]),
+                $page,
+                5
+            )
         ]);
     }
 

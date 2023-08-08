@@ -5,6 +5,8 @@ namespace App\Repository\Topics;
 use App\Entity\Topics\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interfaces\AdminIndexInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -14,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Post[]    findAll()
  * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PostRepository extends ServiceEntityRepository
+class PostRepository extends ServiceEntityRepository implements AdminIndexInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -46,6 +48,13 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy("topics.postAt", "DESC")
             ->addOrderBy("topics.id", "DESC");
         return $qb->getQuery()->getResult();
+    }
+    public function getAdminIndexQuery(array $criteria): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder("topics");
+        $qb
+            ->orderBy("topics.postAt", "desc");
+        return $qb;
     }
 
     //    /**
