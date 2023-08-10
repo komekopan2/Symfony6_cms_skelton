@@ -1,0 +1,27 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_og_title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_twitter_title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_description %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_og_description %}見学予約 | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="breadcrumb">
+  <a class="breadcrumb-item" href="{{ path('top') }}">
+    TOP
+  </a>
+  <a class="breadcrumb-item" href="{{ path('visit-reservation_index')}}">
+    見学予約
+  </a>
+  <a class="breadcrumb-item" href="{{ path('visit-reservation_complete')}}">
+    送信完了
+  </a>
+</div>
+
+<p>
+  お問い合わせを送信しました。<br>
+  <a href="{{ path('top') }}">トップページへ戻る</a>
+</p>
+
+{% endblock %}

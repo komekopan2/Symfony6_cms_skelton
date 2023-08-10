@@ -1,0 +1,37 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_og_title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_twitter_title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_description %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_og_description %}見学予約 | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="breadcrumb">
+  <a class="breadcrumb-item" href="{{ path('top') }}">
+    TOP
+  </a>
+  <a class="breadcrumb-item" href="{{ path('visit-reservation_index')}}">
+    見学予約
+  </a>
+  <a class="breadcrumb-item" href="{{ path('visit-reservation_send')}}">
+    送信中
+  </a>
+</div>
+
+<form
+  {% if app.environment == "prod" %}
+  action="{# Pardot endpoint url #}"
+  {% else %}
+  action="{{ path('visit-reservation_pardot_mock')}}"
+  {% endif %}
+  method="post"
+  class="js_pardot-form"
+>
+  <input type="hidden" name="email" value="{{ inquiry.email }}">
+  <p class="c_pardot-form__message js_pardot-form__message">
+    ただいま送信中です。送信されない場合<a class="c_pardot-form__message--send js_pardot-form__message--send">こちら</a>を押してください
+  </p>
+</form>
+
+{% endblock %}

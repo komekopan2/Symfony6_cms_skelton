@@ -1,0 +1,43 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_og_title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_twitter_title %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_description %}見学予約 | {{ parent() }}{% endblock %}
+{% block meta_og_description %}見学予約 | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="breadcrumb">
+  <a class="breadcrumb-item" href="{{ path('top') }}">
+    TOP
+  </a>
+  <a class="breadcrumb-item" href="{{ path('visit-reservation_index')}}">
+    見学予約
+  </a>
+</div>
+
+{% if not retry %}
+
+  {# ページコンテンツここに #}
+
+{% else %}
+
+  {{ form_errors(form) }}
+
+{% endif %}
+
+{{ form_start(form, {
+  action: path('visit-reservation_confirm')
+}) }}
+
+  {% include "components/form/_row.html.twig" with {
+    form: form.email
+  } %}
+  
+  {% include "components/form/_agreement.html.twig" %}
+  
+  <button type="submit">確認画面へ</button>
+
+{{ form_end(form) }}
+
+{% endblock %}

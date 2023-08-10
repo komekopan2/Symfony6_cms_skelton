@@ -24,6 +24,10 @@
       </div>
       <div class="l_admin-header-item accordion" id="AdminHeaderMenu">
         {% include "admin/include/_menu_item.html.twig" with {
+          name: "見学予約履歴",
+          uri: path("admin_visit-reservation_inquiry")
+        } %}
+        {% include "admin/include/_menu_item.html.twig" with {
           key: "News",
           name: "News",
           uri: '{/admin/news}',
