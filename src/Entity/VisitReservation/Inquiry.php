@@ -70,8 +70,28 @@ class Inquiry implements InquiryInterface, CsvExportInterface
                 "value" => $this->created_at->format("Y/m/d H:i:s")
             ],
             [
-                "header" => "Email",
+                "header" => "お名前",
+                "value" => $this->nameSei . " " . $this->nameMei
+            ],
+            [
+                "header" => "電話番号",
+                "value" => $this->phone
+            ],
+            [
+                "header" => "メールアドレス",
                 "value" => $this->getEmail()
+            ],
+            [
+                "header" => "第1ご希望日",
+                "value" => sprintf("%s %s:%s", $this->hopeDate1?->format("Y/m/d"), $this->hopeHour1, $this->hopeMinute1)
+            ],
+            [
+                "header" => "第2ご希望日",
+                "value" => sprintf("%s %s:%s", $this->hopeDate2?->format("Y/m/d"), $this->hopeHour2, $this->hopeMinute2)
+            ],
+            [
+                "header" => "第3ご希望日",
+                "value" => sprintf("%s %s:%s", $this->hopeDate3?->format("Y/m/d"), $this->hopeHour3, $this->hopeMinute3)
             ],
             [
                 "header" => "IPアドレス",
