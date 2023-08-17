@@ -1,0 +1,73 @@
+{{ form_start(form, {
+action: path('visit-reservation_confirm')
+}) }}
+
+<div class="form_wrap">
+    <div class="form_wrap--txt txt">
+        <p>※メールアドレスは正しくご入力下さい。{% if not isSp() %}{% else %}<br>{% endif %}(弊社より返信メールが届きません。)</p>
+        <p>※半角カナは文字化けの原因となりますので、全角カナでご入力いただきますようお願い致します。</p>
+        <p>※<span class="required required_txt">必須</span>項目は必ずご記入ください。</p>
+        <p>※お客様にご記入いただきました個人情報は厳重に管理致します。</p>
+    </div>
+    <dl class="form_box">
+        <dt class="name_ttl">
+            <span class="ttl">{{ form.nameSei.vars.label }}</span><span class="required">必須</span>
+        </dt>
+        <dd class="txt_box">
+            {{ form_widget(form.nameSei) }}
+            {{ form_widget(form.nameMei )}}
+        </dd>
+    </dl>
+    <dl class="form_box">
+        <dt class="name_ttl">
+            <span class="ttl">{{ form.phone.vars.label }}</span>
+        </dt>
+        <dd class="txt_box tel_box">
+            {{ form_widget(form.phone) }}
+        </dd>
+    </dl>
+    <dl class="form_box">
+        <dt class="name_ttl">
+            <span class="ttl">{{ form.email.vars.label }}</span><span class="required">必須</span>
+        </dt>
+        <dd class="txt_box">
+            {{ form_widget(form.email) }}
+        </dd>
+    </dl>
+    {% include "pages/visit-reservation/_form_hope.html.twig" with {
+    date: form.hopeDate1,
+    hour: form.hopeHour1,
+    minute: form.hopeMinute1
+    } only %}
+    {% include "pages/visit-reservation/_form_hope.html.twig" with {
+    date: form.hopeDate2,
+    hour: form.hopeHour2,
+    minute: form.hopeMinute2
+    } only %}
+    {% include "pages/visit-reservation/_form_hope.html.twig" with {
+    date: form.hopeDate3,
+    hour: form.hopeHour3,
+    minute: form.hopeMinute3
+    } only %}
+</div>
+<div id="PRIVACY" class="privacy_wrap">
+    {# TODO プライバシーポリシー部分持ってくる #}
+
+    <div class="check_box">
+        <input type="checkbox" name="privacy" id="privacy" required>
+        <label for="privacy">上記、プライバシーポリシーに同意する。</label>
+    </div>
+    <div class="btn_wrap">
+        <button class="submit_btn" type="submit">
+            <span class="btn_txt">送信内容を確認</span>
+            <span class="icon_reserv img">
+       <img src="{{ asset('build/images/common/icon_arrow-r.svg') }}" alt="矢印">
+     </span>
+        </button>
+    </div>
+    <p class="recapture_txt">
+        This site is protected by reCAPTCHA and the Google <a class="recapture_link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a class="recapture_link" href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.
+    </p>
+</div>
+{% include "components/_google_recaptcha.html.twig" %}
+{{ form_end(form) }}

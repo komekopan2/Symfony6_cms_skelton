@@ -26,18 +26,5 @@
 
 {% endif %}
 
-{{ form_start(form, {
-  action: path('visit-reservation_confirm')
-}) }}
-
-  {% include "components/form/_row.html.twig" with {
-    form: form.email
-  } %}
-  
-  {% include "components/form/_agreement.html.twig" %}
-  
-  <button type="submit">確認画面へ</button>
-
-{{ form_end(form) }}
-
+{% include "pages/visit-reservation/_form.html.twig" %}
 {% endblock %}
