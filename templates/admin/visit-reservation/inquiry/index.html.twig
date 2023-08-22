@@ -6,29 +6,29 @@
   見学予約
 </h2>
 {{ form_start(form, {
-  action: path('admin_visit-reservation_inquiry'),
-  attr: {
-    class: "l_index__search js_search-form l_form"
-  }
+action: path('admin_visit-reservation_inquiry'),
+attr: {
+class: "l_index__search js_search-form l_form"
+}
 }) }}
-  <div class="l_form__row l_form__row--4box">
-    <div>
-      {{ form_label(form.send_from) }}
-      <div class="d-flex">
-        {{ form_widget(form.send_from) }}〜{{ form_widget(form.send_to) }}
-      </div>
-    </div>
-    {{ form_row(form.limit, {
-      attr: {
-        class: "w-auto"
-      }
-    }) }}
-  </div>
+<div class="l_form__row l_form__row--4box">
   <div>
-    <button class="btn btn-info" type="submit">検索</button>
-    <a class="btn btn-warning js_search-form-reset">リセット</a>
-    <a href="{{ path('admin_visit-reservation_inquiry_csv') }}" class="btn btn-success" target="_blank">CSV出力</a>
+    {{ form_label(form.send_from) }}
+    <div class="d-flex">
+      {{ form_widget(form.send_from) }}〜{{ form_widget(form.send_to) }}
+    </div>
   </div>
+  {{ form_row(form.limit, {
+  attr: {
+  class: "w-auto"
+  }
+  }) }}
+</div>
+<div>
+  <button class="btn btn-info" type="submit">検索</button>
+  <a class="btn btn-warning js_search-form-reset">リセット</a>
+  <a href="{{ path('admin_visit-reservation_inquiry_csv') }}" class="btn btn-success" target="_blank">CSV出力</a>
+</div>
 {{ form_end(form) }}
 
 {% include "admin/include/_pagination.html.twig" %}
@@ -36,6 +36,9 @@
 <table class="l_table table">
   <thead>
     <tr>
+      <th>
+        {{ dataForm.nameSei.vars.label }}
+      </th>
       <th>
         {{ dataForm.email.vars.label }}
       </th>
@@ -48,8 +51,11 @@
     </tr>
   </thead>
   <tbody>
-  {% for entry in data %}
+    {% for entry in data %}
     <tr>
+      <td>
+        {{ entry.nameSei }} {{ entry.nameMei }}
+      </td>
       <td>
         {{ entry.email }}
       </td>
@@ -62,7 +68,7 @@
         </button>
       </td>
     </tr>
-  {% endfor %}
+    {% endfor %}
 </table>
 {% for entry in data %}
 <div class="modal fade" id="modal{{ entry.id }}" tabindex="-1" aria-labelledby="modal{{ entry.id }}" aria-hidden="true">
@@ -70,8 +76,31 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="c_inquiry-detail">
+          <label class="c_inquiry-detail__label">{{ dataForm.nameSei.vars.label }}</label>
+          <span class="c_inquiry-detail__value">{{ entry.nameSei }} {{ entry.nameMei }}</span>
+        </div>
+        <div class="c_inquiry-detail">
+          <label class="c_inquiry-detail__label">{{ dataForm.phone.vars.label }}</label>
+          <span class="c_inquiry-detail__value">{{ entry.phone }}</span>
+        </div>
+        <div class="c_inquiry-detail">
           <label class="c_inquiry-detail__label">{{ dataForm.email.vars.label }}</label>
           <span class="c_inquiry-detail__value">{{ entry.email }}</span>
+        </div>
+        <div class="c_inquiry-detail">
+          <label class="c_inquiry-detail__label">{{ dataForm.hopeDate1.vars.label }}</label>
+          <span class="c_inquiry-detail__value">{{ entry.hopeDate1|date('Y/m/d') }} {{ entry.hopeHour1 }}:{{
+            entry.hopeMinute1 }}</span>
+        </div>
+        <div class="c_inquiry-detail">
+          <label class="c_inquiry-detail__label">{{ dataForm.hopeDate2.vars.label }}</label>
+          <span class="c_inquiry-detail__value">{{ entry.hopeDate2|date('Y/m/d') }} {{ entry.hopeHour2 }}:{{
+            entry.hopeMinute2 }}</span>
+        </div>
+        <div class="c_inquiry-detail">
+          <label class="c_inquiry-detail__label">{{ dataForm.hopeDate3.vars.label }}</label>
+          <span class="c_inquiry-detail__value">{{ entry.hopeDate3|date('Y/m/d') }} {{ entry.hopeHour3 }}:{{
+            entry.hopeMinute3 }}</span>
         </div>
       </div>
     </div>
