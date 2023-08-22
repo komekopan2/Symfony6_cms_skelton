@@ -20,19 +20,67 @@
 </div>
 
 {{ form_start(confirmForm, {
-  action: path('visit-reservation_send')
+action: path('visit-reservation_send')
 }) }}
 
-  {% set required_undisplay = true %}
-  
-  {% include "components/form/_row.html.twig" with {
-    form: form.email,
-    value: form.email.vars.value
-  } %}
-  
-  <a href="{{ path('visit-reservation_index') }}">戻る</a>
-  <button type="submit">送信する</button>
-  {% include "components/_google_recaptcha.html.twig" %}
+{% set required_undisplay = true %}
+
+<div class="pl_contact">
+  <div class="pl_contact--inner inner">
+    <div class="form_wrap">
+
+      <dl class="form_box">
+        {% include "components/form/_row.html.twig" with {
+        form: form.nameSei,
+        value: form.nameSei.vars.value ~ " " ~ form.nameMei.vars.value
+        } %}
+      </dl>
+
+      <dl class="form_box">
+        {% include "components/form/_row.html.twig" with {
+        form: form.phone,
+        value: form.phone.vars.value
+        } %}
+      </dl>
+      <dl class="form_box">
+        {% include "components/form/_row.html.twig" with {
+        form: form.phone,
+        value: form.phone.vars.value
+        } %}
+      </dl>
+
+      {% include "components/form/_row.html.twig" with {
+      form: form.email,
+      value: form.email.vars.value
+      } %}
+      <dl class="form_box">
+        {% include "components/form/_row.html.twig" with {
+        form: form.hopeDate1,
+        value: form.hopeDate1.vars.value|date('Y/m/d')~" "~form.hopeHour1.vars.value~":"~form.hopeMinute1.vars.value
+        } %}
+      </dl>
+
+      <dl class="form_box">
+        {% include "components/form/_row.html.twig" with {
+        form: form.hopeDate2,
+        value: form.hopeDate2.vars.value|date('Y/m/d')~" "~form.hopeHour2.vars.value~":"~form.hopeMinute2.vars.value
+        } %}
+      </dl>
+
+      <dl class="form_box">
+        {% include "components/form/_row.html.twig" with {
+        form: form.hopeDate3,
+        value: form.hopeDate3.vars.value|date('Y/m/d')~" "~form.hopeHour3.vars.value~":"~form.hopeMinute3.vars.value
+        } %}
+      </dl>
+
+
+    </div>
+  </div>
+</div>
+<a href="{{ path('visit-reservation_index') }}">戻る</a>
+<button type="submit">送信する</button>
+{% include "components/_google_recaptcha.html.twig" %}
 
 {{ form_end(confirmForm) }}
 
